@@ -3,7 +3,9 @@
 {% block title %} Strona główna {% endblock %}
 
 {% block content %}
-<p>Witaj, {{user}}</p>
+{%if user.is_authenticated%}
+<p>Witaj, {{user.username}}</p>
+{%endif%}
 
 <form method="POST">
     {%csrf_token%}

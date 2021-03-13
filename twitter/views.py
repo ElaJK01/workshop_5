@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views import View
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView, UpdateView
@@ -22,7 +22,7 @@ class MainPage(View):
             user = self.request.user
             new_tweet = Tweet.objects.create(content=content, author=user)
             new_tweet.save()
-            return reverse_lazy('main.html')
+            return redirect('main')
         else:
             return HttpResponse("Nie dodano tweeta!")
 
