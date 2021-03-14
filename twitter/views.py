@@ -31,3 +31,10 @@ class UpdateUserProfile(UpdateView):
     model = UserProfile
     fields = '__all__'
     success_url = reverse_lazy('main')
+
+
+class UserProfileView(View):
+    def get(self, request):
+        user = self.request.user
+        ctx = {"user": user}
+        return render(request, "userprofile.html", ctx)
