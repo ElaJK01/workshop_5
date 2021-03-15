@@ -18,7 +18,7 @@
 
 {% for tweet in tweets %}
 {{tweet}}
-{% if tweet.author.userprofile.avatar.url %} {{tweet.author.userprofile.avatar}} {% endif %}
+{% if tweet.author.userprofile.avatar.url %} {{tweet.author.userprofile.avatar}} {%else%} Brak {% endif %}
 <p>{{ tweet.author }}	{{ tweet.creation_date }}	{{ tweet.content }}</p>
 {% endfor %}
 {% endblock %}

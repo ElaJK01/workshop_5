@@ -3,7 +3,7 @@ from django.views import View
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView, UpdateView
 from .models import Tweet, UserProfile
-from twitter.forms import TwitterForm
+from twitter.forms import TwitterForm, UpdateUserForm
 from django.http import HttpResponse
 
 
@@ -27,10 +27,24 @@ class MainPage(View):
             return HttpResponse("Nie dodano tweeta!")
 
 
-class UpdateUserProfile(UpdateView):
-    model = UserProfile
-    fields = '__all__'
-    success_url = reverse_lazy('main')
+class UpdateUserProfile(View):
+    def get(self, request):
+        form = UpdateUserForm()
+        user = self.request.user
+        ctx = {"form": form,
+               "user": user}
+        return render(request, "userprofile_form.html", ctx)
+
+    def post(self, request):
+        form = UpdateUserForm(request.POST)
+        user = self.request.user
+        if form.is_valid():
+            avatar = form.cleaned_data['avatar']
+            userprofile_update = UserProfile.objects.create(avatar=avatar, user=user)
+            userprofile_update.save()
+            return reverse_lazy('main')
+        else:
+            return HttpResponse("Nie udało się dodać avatara!")
 
 
 class UserProfileView(View):
