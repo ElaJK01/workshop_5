@@ -6,7 +6,7 @@
 <ul>
     <li>Nazwa: {{user.username}}</li>
     <li>email: {{user.email}}</li>
-    <li>avatar: {% if user.userprofile.avatar.url %} {{user.userprofile.avatar}}{%else%} Brak awatara {% endif %}</li>
+    <li>avatar: {% if user.userprofile.avatar.url %} <img src="{{user.userprofile.avatar.url}}" alt="avatar"> {%else%} Brak awatara {% endif %}</li>
 </ul>
 
 <a href="{% url 'update-userprofile' %}">Dodaj swój awatar</a>

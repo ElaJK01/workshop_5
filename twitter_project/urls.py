@@ -28,6 +28,7 @@ urlpatterns = [
     path('update_userprofile/', UpdateUserProfile.as_view(), name='update-userprofile'),
     path('', MainPage.as_view(), name='main'),
     path('profile/', UserProfileView.as_view(), name='userprofile'),
+
 ]
 
 if settings.DEBUG:
