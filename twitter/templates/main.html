@@ -10,6 +10,7 @@
 <p>Witaj, {{user.username}}</p>
 {%endif%}
 
+
 <form method="POST">
     {%csrf_token%}
     {{form}}
@@ -18,7 +19,16 @@
 
 {% for tweet in tweets %}
 
-{% if tweet.author.userprofile.avatar.url %} <img src="{{tweet.author.userprofile.avatar.url}}" alt="avatar"> {%else%} Brak {% endif %}
-<p>{{ tweet.author }}	{{ tweet.creation_date }}	{{ tweet.content }}</p>
+<table>
+    <tr>
+        <td>{% if tweet.author.userprofile.avatar.url %}
+            <img src="{{tweet.author.userprofile.avatar.url}}" alt="avatar"> {%else%} Brak {% endif %}
+        </td>
+        <td>{{ tweet.author }}</td>
+        <td>{{ tweet.creation_date }}</td>
+        <td>{{ tweet.content }}</td>
+    </tr>
+</table>
+
 {% endfor %}
 {% endblock %}

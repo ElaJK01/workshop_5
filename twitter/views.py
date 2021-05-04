@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView, UpdateView
@@ -6,6 +6,7 @@ from .models import Tweet, UserProfile
 from twitter.forms import TwitterForm, UpdateUserForm
 from django.http import HttpResponse
 from django.views.generic import CreateView, UpdateView
+from django.contrib.auth.models import User
 
 
 class MainPage(View):
@@ -23,22 +24,22 @@ class MainPage(View):
             user = self.request.user
             new_tweet = Tweet.objects.create(content=content, author=user)
             new_tweet.save()
-            return reverse_lazy('main')
+            return redirect('main')
         else:
             return HttpResponse("Nie dodano tweeta!")
 
 
-class UpdateUserProfile(UpdateView): #fixme
-    def get(self, request):
+class UpdateUserProfile(View): #fixme
+    def get(self, request, pk):
         form = UpdateUserForm()
-        user = self.request.user
+        user = get_object_or_404(User,pk=pk)
         ctx = {"form": form,
                "user": user}
         return render(request, "userprofile_form.html", ctx)
 
-    def post(self, request):
+    def post(self, request, pk):
         form = UpdateUserForm(request.POST, request.FILES)
-        user = self.request.user
+        user = get_object_or_404(User, pk=pk)
         if form.is_valid():
             avatar = request.FILES['avatar']
             userprofile = UserProfile.objects.filter(user=user)
@@ -47,13 +48,13 @@ class UpdateUserProfile(UpdateView): #fixme
             else:
                 new_userprofile = UserProfile.objects.create(avatar=avatar, user=user)
                 new_userprofile.save()
-            return reverse_lazy('main')
+            return redirect('main')
         else:
             return HttpResponse("Nie udało się dodać avatara!")
 
 
 class UserProfileView(View):
-    def get(self, request):
-        user = self.request.user
+    def get(self, request, pk):
+        user = get_object_or_404(User, pk=pk)
         ctx = {"user": user}
         return render(request, "userprofile.html", ctx)

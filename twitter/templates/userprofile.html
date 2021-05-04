@@ -1,4 +1,5 @@
 {%extends "base.html"%}
+{% load static %}
 
 {%block content%}
 <h3>Moje dane:</h3>
@@ -9,6 +10,6 @@
     <li>avatar: {% if user.userprofile.avatar.url %} <img src="{{user.userprofile.avatar.url}}" alt="avatar"> {%else%} Brak awatara {% endif %}</li>
 </ul>
 
-<a href="{% url 'update-userprofile' %}">Dodaj swój awatar</a>
+<a href="{% url 'update-userprofile' pk=user.pk %}">Dodaj swój awatar</a>
 {%endblock%}
 

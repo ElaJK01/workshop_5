@@ -25,9 +25,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('login/', LoginView.as_view(), name='login'),
     path('logout/', LogoutView.as_view(), name='logout'),
-    path('update_userprofile/', UpdateUserProfile.as_view(), name='update-userprofile'),
+    path('update_userprofile/<int:pk>/', UpdateUserProfile.as_view(), name='update-userprofile'),
     path('', MainPage.as_view(), name='main'),
-    path('profile/', UserProfileView.as_view(), name='userprofile'),
+    path('profile/<int:pk>/', UserProfileView.as_view(), name='userprofile'),
 
 ]
 

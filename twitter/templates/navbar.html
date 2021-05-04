@@ -10,7 +10,7 @@
             {%if request.user.is_superuser%}
             <li><a class="dropdown-item" href="/admin/">Panel administracyjny</a></li>
             {%endif%}
-            <li><a class="dropdown-item" href="{%url 'userprofile'%}">Mój profil</a></li>
+            <li><a class="dropdown-item" href="{%url 'userprofile' user.pk%}">Mój profil</a></li>
             <li><a class="dropdown-item" href="{%url 'logout'%}">Wyloguj</a></li>
         </ul>
     </li>
