@@ -3,14 +3,14 @@ from django.forms import ModelForm
 from .models import Tweet, UserProfile
 
 
-class TwitterForm(forms.ModelForm):
+class TwitterForm(ModelForm):
     class Meta:
         model = Tweet
         fields = ['content']
 
 
-class UpdateUserForm(forms.ModelForm):
+class UpdateUserForm(ModelForm):
     class Meta:
         model = UserProfile
-        fields = ['avatar']
+        fields = ['avatar', 'user']
 

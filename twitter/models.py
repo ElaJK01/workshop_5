@@ -15,5 +15,5 @@ class Tweet(models.Model):
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    avatar = models.ImageField(upload_to = "avatar")
+    avatar = models.ImageField(upload_to='avatar')
 

@@ -22,7 +22,10 @@
 <table>
     <tr>
         <td>{% if tweet.author.userprofile.avatar.url %}
-            <img src="{{tweet.author.userprofile.avatar.url}}" alt="avatar"> {%else%} Brak {% endif %}
+            <img class="small-avatar" src='{{tweet.author.userprofile.avatar.url}}' alt="avatar">
+            {%else%}
+            Brak
+            {% endif %}
         </td>
         <td>{{ tweet.author }}</td>
         <td>{{ tweet.creation_date }}</td>
